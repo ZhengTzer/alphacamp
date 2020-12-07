@@ -1,0 +1,21 @@
+.jumbotron {
+  background-image: url(https://www.radiantvisionsystems.com/sites/default/files/images/facial%20rec_airport.jpg);
+  background-size: contain;
+  height: 500px;
+}
+
+.jumbotron h1 {
+  display: table;
+  color: black;
+  background-color: #fff;
+}
+
+.jumbotron p {
+  display: table;
+  color: black;
+  background-color: #fff;
+}
+
+.card {
+  border: none;
+}

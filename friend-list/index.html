@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friends Finder</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://kit.fontawesome.com/a06c57457c.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <!--header-->
+  <div class="jumbotron">
+    <h1 class="display-3">3步驟讓AI找到你的另一半</h1>
+    <p class="lead">在茫茫人海中相遇的緣分，就差3步</p>
+  </div>
+
+  <!--selection process start-->
+  <div class='container mt-5'>
+    <!--process 1 : gender selection -->
+    <div style="height: 125px; background-color: rgba(219,152,182,0.3);">
+      <h2 class='row justify-content-center my-3'>第1步：請選擇</h2>
+      <div class="btn-group col justify-content-center" id="filter-gender" role="group" aria-label="Basic example">
+        <button type="button" class="btn-primary btn-lg" id='filter-gender-male'> 我要找男朋友 </button>
+        &nbsp;
+        <button type="button" class="btn-danger btn-lg" id='filter-gender-female'> 我要找女朋友 </button>
+      </div>
+    </div>
+
+    <!--process 2 : preferences -->
+    <div class='row justify-content-center my-3'>
+      <h2 class='row my-3' id='process-one-favourite'>第2步 - 輪廓分析（通過人臉識別，找出你喜歡的輪廓長相）</h2>
+      <div class="row" id='data-panel'>
+        <!--render prefer gender face-->
+      </div>
+    </div>
+
+    <!--process 3 : moto -->
+    <div style='height: auto; background-color: rgba(219,152,182,0.3);'>
+      <h2 class='row justify-content-center my-3'>第3步 - 語義分析（通過文字，找出你喜歡的內心）</h2>
+      <form class='col justify-content-center' id="form">
+        <input type="text" id="input" class="form-control form-control-lg my-3" placeholder="請寫下你最喜歡的一句話。。。"
+          maxlength="40">
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary mb-2">確認</button>
+        </div>
+      </form>
+      <!--render key in moto-->
+    </div>
+
+    <!--preview ： result -->
+    <div class='row justify-content-center my-3'>
+      <div class="container my-3" id="previewResult">
+        <!--render preview-->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class='h3'>步驟</th>
+              <th scope="col" class='h3'>選擇</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <th cope="row">1：對象選擇</th>
+              <th cope="row" id='submitGender'></th>
+            </tr>
+            <tr>
+              <th cope="row">2：輪廓分析</th>
+              <th cope="row">
+                <div class="container">
+                  <div class="row">
+                    <div class='col-sm space-between' id='selectedLoved'>
+                      <!-- render select loved -->
+                    </div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th>3：語義分析</th>
+              <th id='moto'></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!--submit ： result -->
+      <div class="form-group w-50 p-3 text-center">
+        <label for="exampleFormControlInput1">Email address（分析結果會Email到這電郵）</label>
+        <input type="email" class="form-control col-form-label-lg" id="emailResult" placeholder="name@example.com">
+        <button type="submit" class="btn btn-block btn-success my-3" id='finalSubmit'>確認發送</button>
+        <button type="reset" class="btn btn-block my-3" id="allEmpty-button" onclick="resetMoto()">重新選擇</button>
+      </div>
+    </div>
+
+    <!--Footer-->
+    <footer class="page-footer font-small blue pt-5">
+      <!-- Footer Links -->
+      <div class="container-fluid text-center text-md-left">
+        <!-- Grid row -->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-6 mt-md-0 mt-3">
+            <!-- Content -->
+            <h5 class="text-uppercase">In development</h5>
+            <p>Will get in contact once launch</p>
+
+          </div>
+          <!-- Grid column -->
+        </div>
+      </div>
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://tw.alphacamp.co/"> haiya-fried-rice.com </a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="user-modal-name">User Name</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body" id='user-modal-name'>
+          <div class="row">
+            <div class="col-sm-4" id='user-modal-image'>
+              <img src='https://randomuser.me/api/portraits/men/88.jpg' alt='user avatar' class='img-fluid'>
+            </div>
+            <div class="col-sm-8" id='user-modal-info'>
+              <p id="user-modal-gender"></p>
+              <p id="user-modal-birthday"></p>
+              <p id="user-modal-age"></p>
+              <p id="user-modal-region"></p>
+              <p id="user-modal-email"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--js script-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src='./index.js'></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
